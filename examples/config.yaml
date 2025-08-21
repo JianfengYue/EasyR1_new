@@ -11,9 +11,9 @@ data:
   video_fps: 2.0
   max_prompt_length: 2048
   max_response_length: 2048
-  rollout_batch_size: 512  # equivalent to verl's data.train_batch_size
+  rollout_batch_size: 64 # equivalent to verl's data.train_batch_size
   mini_rollout_batch_size: null  # equivalent to verl's data.gen_batch_size
-  val_batch_size: 1024
+  val_batch_size: 64
   format_prompt: ./examples/format_prompt/math.jinja
   override_chat_template: null
   shuffle: true
@@ -35,7 +35,7 @@ algorithm:
 
 worker:
   actor:
-    global_batch_size: 128  # equivalent to verl's actor.ppo_mini_batch_size
+    global_batch_size: 32  # equivalent to verl's actor.ppo_mini_batch_size
     micro_batch_size_per_device_for_update: 4  # equivalent to verl's actor.ppo_micro_batch_size_per_gpu
     micro_batch_size_per_device_for_experience: 16  # equivalent to verl's rollout.log_prob_micro_batch_size_per_gpu
     max_grad_norm: 1.0
@@ -45,7 +45,7 @@ worker:
     sft_enable: True
     model:
       model_path: Qwen/Qwen2.5-Math-1.5B-Instruct
-      enable_gradient_checkpointing: False
+      enable_gradient_checkpointing: True
       trust_remote_code: false
       freeze_vision_tower: false
     optim:
@@ -93,6 +93,7 @@ trainer:
   max_steps: null
   project_name: EasyR1_grpo_sft
   experiment_name: Qwen/Qwen2.5-Math-1.5B-Instruct
+  entity_name: Compression_MLLM
   logger: ["console", "wandb"]
   nnodes: 1
   n_gpus_per_node: 8

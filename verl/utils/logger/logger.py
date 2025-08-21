@@ -123,6 +123,7 @@ class WandbLogger(Logger):
         wandb.init(
             project=config["trainer"]["project_name"],
             name=config["trainer"]["experiment_name"],
+            entity=config["trainer"]["entity_name"],
             config=config,
         )
 

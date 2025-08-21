@@ -93,6 +93,7 @@ trainer:
   max_steps: null
   project_name: easy_r1
   experiment_name: Qwen/Qwen2.5-Math-1.5B-Instruct
+  entity_name: Compression_MLLM
   logger: ["console", "wandb"]
   nnodes: 1
   n_gpus_per_node: 1
