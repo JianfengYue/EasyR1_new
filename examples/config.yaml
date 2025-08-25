@@ -1,10 +1,10 @@
 data:
   # train_files: $HOME/data/geo3k/train.parquet
   # val_files: $HOME/data/geo3k/test.parquet
-  train_files: Elliott/Openr1-Math-46k-8192@train[:95%]
-  val_files: Elliott/Openr1-Math-46k-8192@train[95%:]
-  prompt_key: prompt
-  answer_key: target
+  train_files: /home/hpc/b273dd/b273dd11/data/Openr1_edited
+  val_files: hiyouga/math12k@test
+  prompt_key: problem
+  answer_key: answer
   image_key: images
   video_key: videos
   image_dir: null
@@ -14,7 +14,7 @@ data:
   rollout_batch_size: 64 # equivalent to verl's data.train_batch_size
   mini_rollout_batch_size: null  # equivalent to verl's data.gen_batch_size
   val_batch_size: 64
-  format_prompt: ./examples/format_prompt/math.jinja
+  format_prompt: /home/hpc/b273dd/b273dd11/EasyR1/examples/format_prompt/math.jinja
   override_chat_template: null
   shuffle: true
   seed: 1
@@ -44,7 +44,7 @@ worker:
     ulysses_size: 1
     sft_enable: True
     model:
-      model_path: Qwen/Qwen2.5-Math-1.5B-Instruct
+      model_path: Qwen/Qwen2.5-Math-7B-Instruct
       enable_gradient_checkpointing: True
       trust_remote_code: false
       freeze_vision_tower: false
@@ -86,13 +86,13 @@ worker:
 
   reward:
     reward_type: batch
-    reward_function: ./examples/reward_function/math.py:compute_score
+    reward_function: /home/hpc/b273dd/b273dd11/EasyR1/examples/reward_function/math.py:compute_score
 
 trainer:
   total_epochs: 15
   max_steps: null
   project_name: EasyR1_grpo_sft
-  experiment_name: Qwen/Qwen2.5-Math-1.5B-Instruct
+  experiment_name: Qwen/Qwen2.5-Math-7B-Instruct
   entity_name: Compression_MLLM
   logger: ["console", "wandb"]
   nnodes: 1
@@ -105,6 +105,6 @@ trainer:
   save_freq: 5  # -1 to disable
   save_limit: 3  # -1 to disable
   save_model_only: false
-  save_checkpoint_path: /home/vault/b273dd/b273dd11/checkpoint
+  save_checkpoint_path: false
   load_checkpoint_path: null
   find_last_checkpoint: False

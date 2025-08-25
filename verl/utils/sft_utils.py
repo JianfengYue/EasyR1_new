@@ -16,7 +16,7 @@ def compute_sft_loss_tf(actor_module: torch.nn.Module, batch: DataProto) -> torc
     # 尽量用 non_blocking + pin_memory
     input_ids      = batch.batch["sft_input_ids"].to(device, non_blocking=True)
     attention_mask = batch.batch["sft_attention_mask"].to(device, non_blocking=True)
-    labels         = batch.batch["labels"].to(device, non_blocking=True)
+    labels         = batch.batch["sft_labels"].to(device, non_blocking=True)
 
     if device.type == "cuda":
         with torch.autocast("cuda", dtype=_infer_autocast_dtype(actor_module)):

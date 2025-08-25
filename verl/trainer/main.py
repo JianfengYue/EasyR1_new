@@ -82,9 +82,6 @@ class Runner:
 
         train_dataloader, val_dataloader = create_dataloader(config.data, tokenizer, processor)
 
-        # import itertools
-        # train_dataloader = list(itertools.islice(train_dataloader, 100))
-        # val_dataloader = list(itertools.islice(val_dataloader, 20))
 
         trainer = RayPPOTrainer(
             config=config,
@@ -98,6 +95,7 @@ class Runner:
             reward_fn=reward_fn,
             val_reward_fn=val_reward_fn,
         )
+  
         trainer.init_workers()
         trainer.fit()
 
